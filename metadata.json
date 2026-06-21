@@ -1,0 +1,6 @@
+{
+  "name": "Web Profile Ca Nhan",
+  "description": "Một trang web profile cá nhân hiện đại, tương tác, lôi cuốn và khác biệt bằng tiếng Việt.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

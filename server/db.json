@@ -1,0 +1,346 @@
+{
+  "profile": {
+    "fullName": "Lê Hữu Dương",
+    "title": "Creative Full-Stack Developer",
+    "tagline": "Biến dòng code khô khan thành trải nghiệm kỹ thuật số đầy cảm xúc",
+    "aboutShort": "Tôi là một nhà phát triển Full-Stack sinh năm 2002 tại Việt Nam. Không chỉ lập trình, tôi thích kết hợp giữa tư duy logic chặt chẽ của backend và triết lý thẩm mỹ tinh gọn của thiết kế tương tác.",
+    "aboutLong": "Với xuất phát điểm là một lập trình viên yêu thích cái đẹp, tôi tự định hình mình ở giao điểm giữa Công nghệ và Nghệ thuật tương tác. Tôi luôn cố gắng tối ưu hóa từng mili-giây tải trang đồng thời chăm chút đến từng pixel chuyển động (micro-interaction). Đối với tôi, một sản phẩm tuyệt vời không chỉ giải quyết được bài toán kỹ thuật, mà còn phải đem lại cảm xúc tích cực cho người sử dụng thông qua giao thức mượt mà và trực quan.",
+    "location": "TP. Hồ Chí Minh, Việt Nam",
+    "email": "huuduongle2002@gmail.com",
+    "github": "https://github.com",
+    "linkedin": "https://linkedin.com/in/test",
+    "twitter": "https://twitter.com",
+    "facebook": "https://facebook.com/test",
+    "zalo": "https://zalo.me",
+    "tiktok": "https://tiktok.com",
+    "youtube": "https://youtube.com",
+    "showGithub": true,
+    "showLinkedin": false,
+    "showFacebook": true,
+    "showZalo": false,
+    "showTiktok": false,
+    "showYoutube": false,
+    "status": {
+      "text": "Đang nghiên cứu Generative AI & Interactive 3D",
+      "type": "active"
+    }
+  },
+  "projects": [
+    {
+      "id": "ai-resume-catalyst",
+      "title": "AI Resume Catalyst",
+      "subtitle": "AI-Powered CV Optimizer for Tech Talents",
+      "description": "Công cụ tối ưu hóa CV tự động cho lập trình viên bằng khả năng phân tích ngữ cảnh sâu sắc của Gemini API.",
+      "longDescription": "Một nền tảng hỗ trợ các nhà phát triển trẻ nâng tầm CV của mình. Giao diện tối giản mang phong cách Space Cyber, cho phép tải lên file PDF, phân tích các cú pháp viết lách, chấm điểm dựa trên tiêu chuẩn ATS và gợi ý điều chỉnh kỹ năng theo thời gian thực tương thích với xu hướng thị trường tuyển dụng công nghệ.",
+      "tags": [
+        "React 19",
+        "Node.js",
+        "Gemini AI",
+        "Tailwind CSS"
+      ],
+      "category": "ai",
+      "stats": [
+        {
+          "label": "ATS Score Boost",
+          "value": "+35%"
+        },
+        {
+          "label": "CVs Processed",
+          "value": "1,200+"
+        },
+        {
+          "label": "Processing Speed",
+          "value": "3.2s"
+        }
+      ],
+      "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=80",
+      "demoUrl": "#",
+      "githubUrl": "#",
+      "featured": true
+    },
+    {
+      "id": "z-space-studio",
+      "title": "Z-Space Portfolio Studio",
+      "subtitle": "Interactive Widget-based Identity Generator",
+      "description": "Nền tảng tạo danh thiếp điện tử thế hệ mới dựa trên kiến trúc Bento-Grid kéo thả linh hoạt cho người làm sáng tạo.",
+      "longDescription": "Z-Space định nghĩa lại cách người dùng tự giới thiệu bản thân trực tuyến. Bằng cách sử dụng các widget tương tác cao (như bản đồ thời gian thực, bảng nhạc Spotify tích hợp, và phòng chat mini), người dùng dễ dàng cấu hình danh thiếp mang bản sắc cá nhân chỉ trong chưa đầy 5 phút.",
+      "tags": [
+        "React",
+        "TypeScript",
+        "Dnd-Kit",
+        "Framer Motion"
+      ],
+      "category": "web",
+      "stats": [
+        {
+          "label": "Active Creators",
+          "value": "4.8K"
+        },
+        {
+          "label": "Daily Views",
+          "value": "15,000+"
+        },
+        {
+          "label": "Loading Speed",
+          "value": "0.8s"
+        }
+      ],
+      "image": "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?w=800&auto=format&fit=crop&q=80",
+      "demoUrl": "#",
+      "githubUrl": "#",
+      "featured": true
+    },
+    {
+      "id": "viethack-labs",
+      "title": "Viết Lách Labs",
+      "subtitle": "Minimal Markdown Text Editor with Vietnamese NLP",
+      "description": "Trình soạn thảo Markdown tối giản phân tích cấu trúc câu tiếng Việt và đo lường độ trôi chảy nghệ thuật.",
+      "longDescription": "Dành riêng cho các nhà sáng tạo nội dung tiếng Việt. Ứng dụng tích hợp các mô hình NLP cục bộ và API đám mây để phân tích sắc thái biểu đạt, cảnh báo lặp từ, gợi ý các phép tu từ tinh tế, và hiển thị định dạng Markdown bóng bẩy trực quan hóa trong chế độ distraction-free.",
+      "tags": [
+        "TypeScript",
+        "Electron",
+        "Vietnamese NLP",
+        "Zustand"
+      ],
+      "category": "web",
+      "stats": [
+        {
+          "label": "NPS Rating",
+          "value": "4.9/5"
+        },
+        {
+          "label": "Words Analyzed",
+          "value": "5.4M"
+        },
+        {
+          "label": "WPM Efficiency",
+          "value": "+18%"
+        }
+      ],
+      "image": "https://images.unsplash.com/photo-1542435503-956c469947f6?w=800&auto=format&fit=crop&q=80",
+      "demoUrl": "#",
+      "githubUrl": "#",
+      "featured": false
+    },
+    {
+      "id": "ecoloop-smart",
+      "title": "EcoLoop App",
+      "subtitle": "Smart Waste Management & Green Living Game",
+      "description": "Ứng dụng di động giúp gamify quá trình phân loại rác thải tại gia đình, tích hợp tích điểm đổi quà xanh sạch.",
+      "longDescription": "Một sáng tạo thiết thực giúp cải thiện môi trường sống. Dự án đoạt giải Nhì trong cuộc thi Hackathon Công nghệ Xanh 2025. Ứng dụng sử dụng Vision API phân loại rác chụp từ camera điện thoại, đề xuất các mốc thu gom gần nhất và thưởng bằng thẻ cào điện tử hoặc mã quà tặng nông sản sạch.",
+      "tags": [
+        "React Native",
+        "Google Cloud Vision",
+        "Express.js",
+        "MongoDB"
+      ],
+      "category": "mobile",
+      "stats": [
+        {
+          "label": "Green Points",
+          "value": "280k"
+        },
+        {
+          "label": "Trash Categorized",
+          "value": "3.2 Tons"
+        },
+        {
+          "label": "Recycling Hubs Joined",
+          "value": "45"
+        }
+      ],
+      "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&auto=format&fit=crop&q=80",
+      "featured": false
+    }
+  ],
+  "experiences": [
+    {
+      "id": "exp-1",
+      "role": "Senior Full Stack Engineer & UI Lead",
+      "company": "NextGen Software Solution",
+      "duration": "2024 - Hiện tại",
+      "description": "Chỉ đạo kỹ thuật các dự án ứng dụng web quy mô lớn, xây dựng hệ thống UI-Kit nội bộ và tối ưu hóa hiệu suất API.",
+      "skills": [
+        "React/Next.js",
+        "TypeScript",
+        "Node.js (NestJS)",
+        "PostgreSQL",
+        "TailwindCSS"
+      ],
+      "type": "work",
+      "details": [
+        "Kiến trúc lại core-dashboard giúp giảm thiểu 40% thời gian tải trang ban đầu (LCP từ 3.2s xuống 1.5s).",
+        "Xây dựng thư viện component UI tùy biến, tái sử dụng tại 6 dự án thành viên giúp tiết kiệm 30% thời gian thiết kế sản phẩm mới.",
+        "Tích hợp các luồng tác vụ AI tạo sinh đồng thời quản lý hiệu suất gọi LLMs qua API Gateway."
+      ]
+    },
+    {
+      "id": "exp-2",
+      "role": "Front-End Developer & UI/UX Specialist",
+      "company": "Studio Sáng Tạo TekAesthetics",
+      "duration": "2023 - 2024",
+      "description": "Chịu trách nhiệm thiết kế và lập trình các landing page và web ứng dụng tương tác cao (Interactive WebExperiences).",
+      "skills": [
+        "React",
+        "Framer Motion",
+        "GSAP Animations",
+        "UI/UX Design",
+        "Vite"
+      ],
+      "type": "work",
+      "details": [
+        "Cá nhân hóa và đưa chuyển động hoạt họa mượt mà vào hơn 15 chiến dịch truyền thông kĩ thuật số cho các thương hiệu lớn.",
+        "Tối ưu hóa khả năng tiếp cận (Accessibility WCAG AA) cho trải nghiệm người dùng không giới hạn biên giới.",
+        "Tương tác chặt chẽ với đội ngũ thiết kế designer của Figma để giảm thiểu thời gian chuyển ngữ thiết kế sang mã nguồn."
+      ]
+    },
+    {
+      "id": "exp-3",
+      "role": "Sinh viên ngành Công nghệ Phần mềm",
+      "company": "Trường Đại học Công nghệ Thông tin - ĐHQG TP.HCM",
+      "duration": "2020 - 2024",
+      "description": "Tốt nghiệp cử nhân loại Giỏi khoa mạng máy tính và truyền thông, hoàn thành xuất sắc đồ án tốt nghiệp về hệ thống học máy phân tán.",
+      "skills": [
+        "Computer Networks",
+        "Algorithms",
+        "Python",
+        "Docker Engine",
+        "Deep Learning"
+      ],
+      "type": "education",
+      "details": [
+        "Thống trị giải Vô địch Lập trình sinh viên cấp trường năm 2022.",
+        "Tham gia ban học tập câu lạc bộ học thuật để hỗ trợ sinh viên khóa dưới cải thiện kỹ năng giải thuật.",
+        "Điểm số GPA chung kỳ: 3.65 / 4.0 - Xuất bản 1 bài báo khoa học quốc tế về tối ưu hóa băng thông mạng."
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "id": "frontend",
+      "name": "Front-End Development",
+      "skills": [
+        {
+          "name": "React / Next.js",
+          "level": 95,
+          "iconName": "React"
+        },
+        {
+          "name": "TypeScript / JS ES6+",
+          "level": 90,
+          "iconName": "TypeScript"
+        },
+        {
+          "name": "Tailwind CSS v4 & SCSS",
+          "level": 95,
+          "iconName": "Tailwind"
+        },
+        {
+          "name": "Framer Motion / GSAP",
+          "level": 85,
+          "iconName": "Motion"
+        },
+        {
+          "name": "Vue.js",
+          "level": 70,
+          "iconName": "Vue"
+        }
+      ]
+    },
+    {
+      "id": "backend",
+      "name": "Back-End & Database",
+      "skills": [
+        {
+          "name": "Node.js (Express / NestJS)",
+          "level": 88,
+          "iconName": "Node"
+        },
+        {
+          "name": "Python / FastAPI",
+          "level": 80,
+          "iconName": "Python"
+        },
+        {
+          "name": "PostgreSQL / MongoDB / Firebase",
+          "level": 85,
+          "iconName": "Database"
+        },
+        {
+          "name": "RESTful API / GraphQL",
+          "level": 90,
+          "iconName": "Api"
+        },
+        {
+          "name": "Docker & CI/CD Pipelines",
+          "level": 75,
+          "iconName": "Docker"
+        }
+      ]
+    },
+    {
+      "id": "creative",
+      "name": "Sáng Tạo & Tư Duy",
+      "skills": [
+        {
+          "name": "UI/UX Design on Figma",
+          "level": 85,
+          "iconName": "Figma"
+        },
+        {
+          "name": "Integration LLM Agent (Gemini API)",
+          "level": 90,
+          "iconName": "Ai"
+        },
+        {
+          "name": "SEO & Web Optimization",
+          "level": 88,
+          "iconName": "Performance"
+        },
+        {
+          "name": "Git & Agile / Scrum Workflow",
+          "level": 92,
+          "iconName": "Git"
+        }
+      ]
+    }
+  ],
+  "guestbook": [
+    {
+      "id": "msg-1781356637158",
+      "name": "Test User",
+      "email": "test@example.com",
+      "message": "Hello from fullstack verification!",
+      "timestamp": "2026-06-13T13:17:17.158Z",
+      "emoji": "🚀",
+      "avatarSeed": 3
+    },
+    {
+      "id": "msg-1",
+      "name": "Minh Thư Nguyễn",
+      "email": "minhthu@fpt.edu.vn",
+      "message": "Portfolio đỉnh thực sự Dương ơi! Trải nghiệm cuộn và các widget bento-grid mượt mà kinh khủng. Hy vọng có dịp hợp tác làm dự án AI sắp tới nhé! 🔥",
+      "timestamp": "2026-06-10T14:30:00Z",
+      "emoji": "🚀",
+      "avatarSeed": 4
+    },
+    {
+      "id": "msg-2",
+      "name": "Hoàng Minh (Tech Lead)",
+      "email": "hminh.dev@nextgen.com",
+      "message": "Đồng nghiệp tuyệt vời nhất của anh. Dương không chỉ làm nhanh mà sản phẩm luôn có độ thẩm mỹ cực kỳ tinh tế. Highly recommend cho bất kỳ dự án creative nào!",
+      "timestamp": "2026-06-08T09:15:00Z",
+      "emoji": "⭐",
+      "avatarSeed": 9
+    },
+    {
+      "id": "msg-3",
+      "name": "Khánh Linh",
+      "email": "klinh.design@gmail.com",
+      "message": "Thích cách bạn phối màu Space Dark và phong cách bento hiện đại thế này. Rất truyền cảm hứng cho dân designer làm web dev!",
+      "timestamp": "2026-06-11T12:00:00Z",
+      "emoji": "🎨",
+      "avatarSeed": 2
+    }
+  ]
+}

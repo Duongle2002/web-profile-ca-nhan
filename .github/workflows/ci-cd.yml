@@ -1,0 +1,51 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  # Job 1: Lint and verify frontend build on GitHub-hosted runner to prevent errors
+  ci-verify:
+    name: Verify Code Integration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check TypeScript errors (Lint)
+        run: npm run lint
+
+      - name: Build client assets (Verify client compilation)
+        run: npm run build
+
+  # Job 2: Deploy to the Proxmox self-hosted runner via Docker Compose
+  deploy:
+    name: Deploy to Proxmox Server
+    needs: ci-verify
+    # Only run deployment on pushes to main/master branches, not on pull requests
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+    runs-on: self-hosted
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build and restart Docker containers
+        run: |
+          docker compose down
+          docker compose up -d --build

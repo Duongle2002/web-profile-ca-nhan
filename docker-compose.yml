@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: web-profile-app
+    ports:
+      - "5000:5000"
+    volumes:
+      # Mount database file persistently outside the container to avoid data loss on rebuild
+      - /var/lib/web-profile/db.json:/app/server/db.json
+      # Mount .env configuration dynamically from the host machine
+      - /var/lib/web-profile/.env:/app/.env
+    restart: always
