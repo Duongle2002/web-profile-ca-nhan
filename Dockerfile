@@ -27,6 +27,10 @@ COPY --from=builder /app/dist ./dist
 # Copy backend server files
 COPY --from=builder /app/server ./server
 
+# Copy data and types files needed by the server
+COPY --from=builder /app/src/data.ts ./src/data.ts
+COPY --from=builder /app/src/types.ts ./src/types.ts
+
 # Copy all node_modules (required since start command uses tsx to run TS server file)
 COPY --from=builder /app/node_modules ./node_modules
 
