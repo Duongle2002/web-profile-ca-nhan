@@ -20,7 +20,7 @@ export default function AboutCard({ personalInfo }: AboutCardProps) {
   const contentMap = {
     story: {
       title: "Hành trình & Tư duy sáng tạo",
-      body: personalInfo.aboutLong,
+      body: personalInfo.aboutLong || '',
       factoids: [
         { label: "Bắt đầu code", value: "Từ 2019" },
         { label: "Tuổi đời", value: "24 tuổi (Sinh năm 2002)" },
@@ -29,8 +29,8 @@ export default function AboutCard({ personalInfo }: AboutCardProps) {
     },
     philosophy: {
       title: "Thế giới quan Thiết kế độc đáo",
-      body: "Một giao diện đẹp không chỉ là những dải màu phong cách hay font chữ thời thượng, mà là cách nó trò chuyện với người dùng qua từng hành động click. Tôi tin vào sự tối giản thông minh, nơi mọi thành phần đều có lý do để tồn tại và trải nghiệm được cá nhân hóa cao độ để chạm đến cảm xúc.",
-      factoids: [
+      body: personalInfo.aboutPhilosophy || "Một giao diện đẹp không chỉ là những dải màu phong cách hay font chữ thời thượng, mà là cách nó trò chuyện với người dùng qua từng hành động click. Tôi tin vào sự tối giản thông minh, nơi mọi thành phần đều có lý do để tồn tại và trải nghiệm được cá nhân hóa cao độ để chạm đến cảm xúc.",
+      factoids: personalInfo.philosophyFactoids || [
         { label: "Nguyên lý cốt lõi", value: "Tối giản" },
         { label: "Trọng tâm", value: "Mượt mà (60fps animation)" },
         { label: "Tôn chỉ", value: "Chống rập khuôn thiết kế" },
@@ -38,8 +38,8 @@ export default function AboutCard({ personalInfo }: AboutCardProps) {
     },
     milestones: {
       title: "Mục tiêu & Đích đến Công nghệ",
-      body: "Trong năm 2026, tôi tập trung đi sâu vào khả năng nhúng Generative AI thông minh trực tiếp vào các môi trường UI/UX thời gian thực (Real-time Adaptive Interfaces) và nghiên cứu kĩ thuật tối ưu hóa mã nguồn biên dịch WebAssembly để mang đến thế hệ ứng dụng siêu web.",
-      factoids: [
+      body: personalInfo.aboutMilestones || "Trong năm 2026, tôi tập trung đi sâu vào khả năng nhúng Generative AI thông minh trực tiếp vào các môi trường UI/UX thời gian thực (Real-time Adaptive Interfaces) và nghiên cứu kĩ thuật tối ưu hóa mã nguồn biên dịch WebAssembly để mang đến thế hệ ứng dụng siêu web.",
+      factoids: personalInfo.milestonesFactoids || [
         { label: "Công nghệ then chốt", value: "WASM & WebAgent AI" },
         { label: "Nghiên cứu phụ", value: "Adaptive UI Theme" },
         { label: "Khao khát", value: "Nâng tầm Web Việt" },

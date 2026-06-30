@@ -6,6 +6,18 @@ export const PERSONAL_INFO = {
   tagline: "Biến dòng code khô khan thành trải nghiệm kỹ thuật số đầy cảm xúc",
   aboutShort: "Tôi là một nhà phát triển Full-Stack sinh năm 2002 tại Việt Nam. Không chỉ lập trình, tôi thích kết hợp giữa tư duy logic chặt chẽ của backend và triết lý thẩm mỹ tinh gọn của thiết kế tương tác.",
   aboutLong: "Với xuất phát điểm là một lập trình viên yêu thích cái đẹp, tôi tự định hình mình ở giao điểm giữa Công nghệ và Nghệ thuật tương tác. Tôi luôn cố gắng tối ưu hóa từng mili-giây tải trang đồng thời chăm chút đến từng pixel chuyển động (micro-interaction). Đối với tôi, một sản phẩm tuyệt vời không chỉ giải quyết được bài toán kỹ thuật, mà còn phải đem lại cảm xúc tích cực cho người sử dụng thông qua giao thức mượt mà và trực quan.",
+  aboutPhilosophy: "Một giao diện đẹp không chỉ là những dải màu phong cách hay font chữ thời thượng, mà là cách nó trò chuyện với người dùng qua từng hành động click. Tôi tin vào sự tối giản thông minh, nơi mọi thành phần đều có lý do để tồn tại và trải nghiệm được cá nhân hóa cao độ để chạm đến cảm xúc.",
+  philosophyFactoids: [
+    { label: "Nguyên lý cốt lõi", value: "Tối giản" },
+    { label: "Trọng tâm", value: "Mượt mà (60fps animation)" },
+    { label: "Tôn chỉ", value: "Chống rập khuôn thiết kế" }
+  ],
+  aboutMilestones: "Trong năm 2026, tôi tập trung đi sâu vào khả năng nhúng Generative AI thông minh trực tiếp vào các môi trường UI/UX thời gian thực (Real-time Adaptive Interfaces) và nghiên cứu kĩ thuật tối ưu hóa mã nguồn biên dịch WebAssembly để mang đến thế hệ ứng dụng siêu web.",
+  milestonesFactoids: [
+    { label: "Công nghệ then chốt", value: "WASM & WebAgent AI" },
+    { label: "Nghiên cứu phụ", value: "Adaptive UI Theme" },
+    { label: "Khao khát", value: "Nâng tầm Web Việt" }
+  ],
   location: "TP. Đà Năng, Việt Nam",
   email: "huuduongle2002@gmail.com",
   github: "https://github.com/Duongle2002",
@@ -24,7 +36,13 @@ export const PERSONAL_INFO = {
   status: {
     text: "Đang nghiên cứu Generative AI & Interactive 3D",
     type: "active" as const, // active, idle, busy
-  }
+  },
+  projectCategories: [
+    { id: "ai", label: "Màng lọc AI" },
+    { id: "web", label: "Web Platform" },
+    { id: "mobile", label: "Mobile App" },
+    { id: "design", label: "Thiết kế sáng tạo" }
+  ]
 };
 
 export const PROJECTS: Project[] = [

@@ -6,6 +6,16 @@ const ProfileSchema = new mongoose.Schema({
   tagline: { type: String, required: true },
   aboutShort: { type: String },
   aboutLong: { type: String },
+  aboutPhilosophy: { type: String },
+  philosophyFactoids: [{
+    label: { type: String },
+    value: { type: String }
+  }],
+  aboutMilestones: { type: String },
+  milestonesFactoids: [{
+    label: { type: String },
+    value: { type: String }
+  }],
   location: { type: String },
   email: { type: String },
   github: { type: String },
@@ -24,7 +34,11 @@ const ProfileSchema = new mongoose.Schema({
   status: {
     text: { type: String },
     type: { type: String, enum: ['active', 'idle', 'busy'], default: 'active' }
-  }
+  },
+  projectCategories: [{
+    id: { type: String, required: true },
+    label: { type: String, required: true }
+  }]
 }, { timestamps: true });
 
 export const Profile = mongoose.model('Profile', ProfileSchema);

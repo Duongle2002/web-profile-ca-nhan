@@ -5,10 +5,11 @@ import { ExternalLink, Github, Layers, ArrowUpRight, CheckCircle, Flame, Star } 
 
 interface ProjectsCardProps {
   projects: Project[];
+  categories?: { id: string; label: string }[];
 }
 
-export default function ProjectsCard({ projects }: ProjectsCardProps) {
-  const [activeCategory, setActiveCategory] = useState<'all' | 'ai' | 'web' | 'mobile'>('all');
+export default function ProjectsCard({ projects, categories }: ProjectsCardProps) {
+  const [activeCategory, setActiveCategory] = useState<string>('all');
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
 
   // Auto-select first project on mount or when projects update
@@ -18,12 +19,16 @@ export default function ProjectsCard({ projects }: ProjectsCardProps) {
     }
   }, [projects, selectedProjectId]);
 
-  // Categories list
-  const categories: { id: 'all' | 'ai' | 'web' | 'mobile'; label: string }[] = [
-    { id: 'all', label: 'Tất cả dự án' },
+  const defaultCategories = [
     { id: 'ai', label: 'Màng lọc AI' },
     { id: 'web', label: 'Web Platform' },
-    { id: 'mobile', label: 'Mobile App' }
+    { id: 'mobile', label: 'Mobile App' },
+    { id: 'design', label: 'Thiết kế sáng tạo' }
+  ];
+
+  const categoriesList = [
+    { id: 'all', label: 'Tất cả dự án' },
+    ...(categories && categories.length > 0 ? categories : defaultCategories)
   ];
 
   // Filtering projects
@@ -55,7 +60,7 @@ export default function ProjectsCard({ projects }: ProjectsCardProps) {
 
           {/* Quick filter switcher */}
           <div className="flex flex-wrap gap-1 bg-[#FFF5E1] p-1 rounded-lg border-2 border-black">
-            {categories.map((cat) => (
+            {categoriesList.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => {

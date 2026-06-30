@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   X, Save, RotateCcw, User, Zap, Briefcase, Layers, 
-  Plus, Trash2, Edit3, ArrowRight, Eye, Check, Key
+  Plus, Trash2, Edit3, ArrowRight, Eye, Check, Key, Download
 } from 'lucide-react';
 import { Project, Experience, SkillCategory } from '../types';
+import { MOCK_MESSAGES } from '../data';
 
 interface EditorConsoleProps {
   isOpen: boolean;
@@ -47,6 +48,10 @@ export default function EditorConsole({
   const [title, setTitle] = useState(personalInfo.title);
   const [tagline, setTagline] = useState(personalInfo.tagline);
   const [aboutLong, setAboutLong] = useState(personalInfo.aboutLong);
+  const [aboutPhilosophy, setAboutPhilosophy] = useState(personalInfo.aboutPhilosophy || '');
+  const [philosophyFactoids, setPhilosophyFactoids] = useState<any[]>(personalInfo.philosophyFactoids || []);
+  const [aboutMilestones, setAboutMilestones] = useState(personalInfo.aboutMilestones || '');
+  const [milestonesFactoids, setMilestonesFactoids] = useState<any[]>(personalInfo.milestonesFactoids || []);
   const [location, setLocation] = useState(personalInfo.location);
   const [email, setEmail] = useState(personalInfo.email);
   const [github, setGithub] = useState(personalInfo.github || '');
@@ -73,6 +78,20 @@ export default function EditorConsole({
       setTitle(personalInfo.title || '');
       setTagline(personalInfo.tagline || '');
       setAboutLong(personalInfo.aboutLong || '');
+      
+      setAboutPhilosophy(personalInfo.aboutPhilosophy || "Một giao diện đẹp không chỉ là những dải màu phong cách hay font chữ thời thượng, mà là cách nó trò chuyện với người dùng qua từng hành động click. Tôi tin vào sự tối giản thông minh, nơi mọi thành phần đều có lý do để tồn tại và trải nghiệm được cá nhân hóa cao độ để chạm đến cảm xúc.");
+      setPhilosophyFactoids(personalInfo.philosophyFactoids || [
+        { label: "Nguyên lý cốt lõi", value: "Tối giản" },
+        { label: "Trọng tâm", value: "Mượt mà (60fps animation)" },
+        { label: "Tôn chỉ", value: "Chống rập khuôn thiết kế" },
+      ]);
+      setAboutMilestones(personalInfo.aboutMilestones || "Trong năm 2026, tôi tập trung đi sâu vào khả năng nhúng Generative AI thông minh trực tiếp vào các môi trường UI/UX thời gian thực (Real-time Adaptive Interfaces) và nghiên cứu kĩ thuật tối ưu hóa mã nguồn biên dịch WebAssembly để mang đến thế hệ ứng dụng siêu web.");
+      setMilestonesFactoids(personalInfo.milestonesFactoids || [
+        { label: "Công nghệ then chốt", value: "WASM & WebAgent AI" },
+        { label: "Nghiên cứu phụ", value: "Adaptive UI Theme" },
+        { label: "Khao khát", value: "Nâng tầm Web Việt" },
+      ]);
+
       setLocation(personalInfo.location || '');
       setEmail(personalInfo.email || '');
       setGithub(personalInfo.github || '');
@@ -102,6 +121,10 @@ export default function EditorConsole({
       title,
       tagline,
       aboutLong,
+      aboutPhilosophy,
+      philosophyFactoids,
+      aboutMilestones,
+      milestonesFactoids,
       location,
       email,
       github,
@@ -132,6 +155,7 @@ export default function EditorConsole({
   // State elements for active editing targets
   const [editingProjectId, setEditingProjectId] = useState<string | null>(null);
   const [newProject, setNewProject] = useState<Partial<Project>>({});
+  const [newCategoryLabel, setNewCategoryLabel] = useState('');
   
   const [editingExperienceId, setEditingExperienceId] = useState<string | null>(null);
   const [newExperience, setNewExperience] = useState<Partial<Experience>>({});
@@ -151,6 +175,78 @@ export default function EditorConsole({
       onResetToDefault();
       onClose();
     }
+  };
+
+  // Backup download helper
+  const handleDownloadBackup = async () => {
+    let guestbookMessages = [];
+    try {
+      const res = await fetch('/api/guestbook');
+      if (res.ok) {
+        guestbookMessages = await res.json();
+      }
+    } catch (err) {
+      console.error("Lỗi lấy danh sách lưu bút để backup:", err);
+    }
+
+    if (guestbookMessages.length === 0) {
+      guestbookMessages = MOCK_MESSAGES;
+    }
+
+    // Build personalInfo representing current edited states
+    const currentPersonalInfo = {
+      fullName,
+      title,
+      tagline,
+      aboutShort: personalInfo.aboutShort || '',
+      aboutLong,
+      aboutPhilosophy,
+      philosophyFactoids,
+      aboutMilestones,
+      milestonesFactoids,
+      location,
+      email,
+      github,
+      linkedin,
+      twitter: personalInfo.twitter || '',
+      facebook,
+      zalo,
+      tiktok,
+      youtube,
+      showGithub,
+      showLinkedin,
+      showFacebook,
+      showZalo,
+      showTiktok,
+      showYoutube,
+      status: {
+        text: statusText,
+        type: personalInfo.status?.type || 'active'
+      },
+      projectCategories: personalInfo.projectCategories || []
+    };
+
+    const fileContent = `import { Project, Experience, SkillCategory, GuestbookMessage } from './types';
+
+export const PERSONAL_INFO = ${JSON.stringify(currentPersonalInfo, null, 2)};
+
+export const PROJECTS: Project[] = ${JSON.stringify(projects, null, 2)};
+
+export const EXPERIENCES: Experience[] = ${JSON.stringify(experiences, null, 2)};
+
+export const SKILL_CATEGORIES: SkillCategory[] = ${JSON.stringify(skillCategories, null, 2)};
+
+export const MOCK_MESSAGES: GuestbookMessage[] = ${JSON.stringify(guestbookMessages, null, 2)};
+`;
+
+    const blob = new Blob([fileContent], { type: 'text/typescript;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'data.ts');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -482,17 +578,112 @@ export default function EditorConsole({
                     </div>
                   </div>
 
-                  <div className="p-4 bg-white border-2 border-black rounded-xl shadow-[4px_4px_0px_0px_#000]">
-                    <h3 className="text-sm font-black font-heading uppercase text-black italic mb-2">
-                      Tiểu sử chi tiết (About Me tabs)
+                  <div className="p-4 bg-white border-2 border-black rounded-xl shadow-[4px_4px_0px_0px_#000] space-y-4">
+                    <h3 className="text-sm font-black font-heading uppercase text-black italic border-b-2 border-black pb-1 mb-2">
+                      Khám phá & Tiểu sử chi tiết
                     </h3>
+                    
+                    {/* Tab: Tiểu sử */}
                     <div className="space-y-1 text-left">
+                      <label className="text-[11px] font-black text-zinc-700 uppercase">Tiểu sử chính (Hành trình & Tư duy)</label>
                       <textarea
                         value={aboutLong}
                         onChange={(e) => setAboutLong(e.target.value)}
-                        rows={5}
+                        rows={4}
                         className="w-full px-3 py-2 rounded-lg bg-white border-2 border-black focus:bg-amber-50/20 text-xs font-bold text-black outline-none resize-none"
                       />
+                    </div>
+
+                    {/* Tab: Triết lý sáng tạo */}
+                    <div className="space-y-2 text-left pt-2 border-t border-dashed border-zinc-200">
+                      <label className="text-[11px] font-black text-zinc-700 uppercase">Triết lý sáng tạo</label>
+                      <textarea
+                        value={aboutPhilosophy}
+                        onChange={(e) => setAboutPhilosophy(e.target.value)}
+                        rows={3}
+                        className="w-full px-3 py-2 rounded-lg bg-white border-2 border-black focus:bg-amber-50/20 text-xs font-bold text-black outline-none resize-none"
+                      />
+                      
+                      <div className="space-y-1 bg-zinc-50 p-2.5 rounded-lg border border-zinc-200">
+                        <span className="text-[10px] font-black text-zinc-500 uppercase block mb-1.5">Chỉ số / Factoids của Triết lý (3 dòng)</span>
+                        {[0, 1, 2].map((idx) => {
+                          const fact = philosophyFactoids[idx] || { label: '', value: '' };
+                          return (
+                            <div key={idx} className="grid grid-cols-2 gap-2 mt-1">
+                              <input
+                                type="text"
+                                placeholder={`Tên chỉ số ${idx + 1}`}
+                                value={fact.label}
+                                onChange={(e) => {
+                                  const updated = [...philosophyFactoids];
+                                  if (!updated[idx]) updated[idx] = { label: '', value: '' };
+                                  updated[idx].label = e.target.value;
+                                  setPhilosophyFactoids(updated);
+                                }}
+                                className="px-2 py-1 border border-zinc-300 rounded bg-white text-[11px] font-semibold text-black focus:border-black outline-none"
+                              />
+                              <input
+                                type="text"
+                                placeholder={`Giá trị ${idx + 1}`}
+                                value={fact.value}
+                                onChange={(e) => {
+                                  const updated = [...philosophyFactoids];
+                                  if (!updated[idx]) updated[idx] = { label: '', value: '' };
+                                  updated[idx].value = e.target.value;
+                                  setPhilosophyFactoids(updated);
+                                }}
+                                className="px-2 py-1 border border-zinc-300 rounded bg-white text-[11px] font-semibold text-black focus:border-black outline-none"
+                              />
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Tab: Mục tiêu 2026 */}
+                    <div className="space-y-2 text-left pt-2 border-t border-dashed border-zinc-200">
+                      <label className="text-[11px] font-black text-zinc-700 uppercase">Mục tiêu & Đích đến (Mục tiêu 2026)</label>
+                      <textarea
+                        value={aboutMilestones}
+                        onChange={(e) => setAboutMilestones(e.target.value)}
+                        rows={3}
+                        className="w-full px-3 py-2 rounded-lg bg-white border-2 border-black focus:bg-amber-50/20 text-xs font-bold text-black outline-none resize-none"
+                      />
+
+                      <div className="space-y-1 bg-zinc-50 p-2.5 rounded-lg border border-zinc-200">
+                        <span className="text-[10px] font-black text-zinc-500 uppercase block mb-1.5">Chỉ số / Factoids của Mục tiêu (3 dòng)</span>
+                        {[0, 1, 2].map((idx) => {
+                          const fact = milestonesFactoids[idx] || { label: '', value: '' };
+                          return (
+                            <div key={idx} className="grid grid-cols-2 gap-2 mt-1">
+                              <input
+                                type="text"
+                                placeholder={`Tên chỉ số ${idx + 1}`}
+                                value={fact.label}
+                                onChange={(e) => {
+                                  const updated = [...milestonesFactoids];
+                                  if (!updated[idx]) updated[idx] = { label: '', value: '' };
+                                  updated[idx].label = e.target.value;
+                                  setMilestonesFactoids(updated);
+                                }}
+                                className="px-2 py-1 border border-zinc-300 rounded bg-white text-[11px] font-semibold text-black focus:border-black outline-none"
+                              />
+                              <input
+                                type="text"
+                                placeholder={`Giá trị ${idx + 1}`}
+                                value={fact.value}
+                                onChange={(e) => {
+                                  const updated = [...milestonesFactoids];
+                                  if (!updated[idx]) updated[idx] = { label: '', value: '' };
+                                  updated[idx].value = e.target.value;
+                                  setMilestonesFactoids(updated);
+                                }}
+                                className="px-2 py-1 border border-zinc-300 rounded bg-white text-[11px] font-semibold text-black focus:border-black outline-none"
+                              />
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
                   </div>
 
@@ -839,6 +1030,83 @@ export default function EditorConsole({
                 <div className="space-y-4">
                   {editingProjectId === null ? (
                     <>
+                      {/* Lĩnh vực phân loại động - Category Manager */}
+                      <div className="p-4 bg-white border-2 border-black rounded-xl shadow-[3px_3px_0px_0px_#000] text-left space-y-3">
+                        <h4 className="text-xs font-black uppercase text-black italic flex items-center gap-1">
+                          📂 Quản lý lĩnh vực dự án
+                        </h4>
+                        
+                        {/* List current categories as tags */}
+                        <div className="flex flex-wrap gap-1.5">
+                          {(personalInfo.projectCategories || []).map((cat: any) => (
+                            <span 
+                              key={cat.id} 
+                              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#FFF5E1] border-2 border-black text-xs font-black text-black"
+                            >
+                              <span>{cat.label}</span>
+                              <button
+                                onClick={() => {
+                                  if (window.confirm(`Xóa lĩnh vực "${cat.label}"? Các dự án thuộc lĩnh vực này vẫn giữ nguyên nhưng sẽ không hiện trong bộ lọc.`)) {
+                                    const updated = (personalInfo.projectCategories || []).filter((c: any) => c.id !== cat.id);
+                                    setPersonalInfo({
+                                      ...personalInfo,
+                                      projectCategories: updated
+                                    });
+                                  }
+                                }}
+                                className="text-[#FF3E00] hover:text-red-700 font-black cursor-pointer leading-none text-sm"
+                                title="Xóa"
+                              >
+                                &times;
+                              </button>
+                            </span>
+                          ))}
+                          {(personalInfo.projectCategories || []).length === 0 && (
+                            <span className="text-xs text-zinc-500 font-semibold italic">Chưa có lĩnh vực nào. Hãy tạo bên dưới.</span>
+                          )}
+                        </div>
+
+                        {/* Add category input + button */}
+                        <div className="flex gap-2">
+                          <input
+                            type="text"
+                            placeholder="Nhập tên lĩnh vực mới (Ví dụ: Game Dev)..."
+                            value={newCategoryLabel}
+                            onChange={(e) => setNewCategoryLabel(e.target.value)}
+                            className="flex-1 px-3 py-1.5 border-2 border-black rounded-lg text-xs font-bold bg-white text-black outline-none"
+                          />
+                          <button
+                            onClick={() => {
+                              const label = newCategoryLabel.trim();
+                              if (!label) return;
+                              
+                              // Generate ID from slug
+                              const id = label.toLowerCase()
+                                .replace(/[^a-z0-9]+/g, '-')
+                                .replace(/(^-|-$)/g, '');
+                                
+                              if (!id) return;
+                              
+                              const currentCats = personalInfo.projectCategories || [];
+                              if (currentCats.some((c: any) => c.id === id)) {
+                                alert('Lĩnh vực này đã tồn tại hoặc trùng mã ID!');
+                                return;
+                              }
+                              
+                              const updated = [...currentCats, { id, label }];
+                              setPersonalInfo({
+                                ...personalInfo,
+                                projectCategories: updated
+                              });
+                              setNewCategoryLabel('');
+                            }}
+                            className="px-4 py-1.5 bg-[#E0FF00] hover:bg-[#E0FF00]/90 border-2 border-black text-black font-black text-xs uppercase tracking-wider rounded-lg shadow-[2px_2px_0px_0px_#000] cursor-pointer"
+                          >
+                            + Thêm
+                          </button>
+                        </div>
+                      </div>
+
                       {/* List View with Add Button */}
                       <div className="space-y-3">
                         {projects.map((proj) => (
@@ -958,14 +1226,24 @@ export default function EditorConsole({
                         <div className="space-y-1">
                           <label className="text-[10px] font-black uppercase text-zinc-650">Lĩnh vực phân loại</label>
                           <select
-                            value={newProject.category || 'web'}
-                            onChange={(e) => setNewProject({ ...newProject, category: e.target.value as any })}
+                            value={newProject.category || ''}
+                            onChange={(e) => setNewProject({ ...newProject, category: e.target.value })}
                             className="w-full px-2 py-1.5 border-2 border-black text-xs font-bold rounded-md bg-white text-black"
                           >
-                            <option value="web">Công nghệ Web (Web)</option>
-                            <option value="mobile">Di Động (Mobile)</option>
-                            <option value="ai">Trí tuệ nhân đạo (AI)</option>
-                            <option value="design">Thiết kế sáng tạo</option>
+                            <option value="" disabled>-- Chọn lĩnh vực --</option>
+                            {(personalInfo.projectCategories || []).map((cat: any) => (
+                              <option key={cat.id} value={cat.id}>
+                                {cat.label} ({cat.id})
+                              </option>
+                            ))}
+                            {(personalInfo.projectCategories || []).length === 0 && (
+                              <>
+                                <option value="web">Công nghệ Web (Web)</option>
+                                <option value="mobile">Di Động (Mobile)</option>
+                                <option value="ai">Trí tuệ nhân đạo (AI)</option>
+                                <option value="design">Thiết kế sáng tạo</option>
+                              </>
+                            )}
                           </select>
                         </div>
 
@@ -1131,12 +1409,22 @@ export default function EditorConsole({
                   className="px-2 py-1 bg-white border-2 border-black rounded text-xs font-mono font-bold w-full sm:w-36 focus:bg-amber-50/20 outline-none"
                 />
               </div>
-              <button
-                onClick={onClose}
-                className="w-full sm:w-auto px-6 py-2 bg-[#E0FF00] hover:bg-[#E0FF00]/90 border-2 border-black text-black font-black text-xs uppercase tracking-wider rounded shadow-[2px_2px_0px_0px_#000] cursor-pointer transition-all hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px]"
-              >
-                Hoàn thành & Đóng
-              </button>
+              <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto justify-end">
+                <button
+                  onClick={handleDownloadBackup}
+                  className="w-full sm:w-auto px-4 py-2 bg-[#00D1FF] hover:bg-[#00D1FF]/90 border-2 border-black text-black font-black text-xs uppercase tracking-wider rounded shadow-[2px_2px_0px_0px_#000] cursor-pointer transition-all hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] flex items-center justify-center gap-1.5"
+                  title="Tải tệp data.ts chứa toàn bộ dữ liệu hiện tại để sao lưu"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Tải Backup (data.ts)</span>
+                </button>
+                <button
+                  onClick={onClose}
+                  className="w-full sm:w-auto px-6 py-2 bg-[#E0FF00] hover:bg-[#E0FF00]/90 border-2 border-black text-black font-black text-xs uppercase tracking-wider rounded shadow-[2px_2px_0px_0px_#000] cursor-pointer transition-all hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px]"
+                >
+                  Hoàn thành & Đóng
+                </button>
+              </div>
             </div>
 
           </motion.div>

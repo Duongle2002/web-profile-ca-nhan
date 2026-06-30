@@ -297,7 +297,7 @@ export default function App() {
           <section className="lg:col-span-7 space-y-6 flex flex-col justify-start">
             {/* Active Projects Desk */}
             <div id="projects" className="scroll-mt-6">
-              <ProjectsCard projects={projects} />
+              <ProjectsCard projects={projects} categories={personalInfo.projectCategories} />
             </div>
 
             {/* Smart Technologies and Skills matching platform */}

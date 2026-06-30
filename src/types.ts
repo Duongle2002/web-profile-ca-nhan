@@ -5,7 +5,7 @@ export interface Project {
   description: string;
   longDescription: string;
   tags: string[];
-  category: 'web' | 'mobile' | 'ai' | 'design';
+  category: string;
   stats: { label: string; value: string }[];
   image: string;
   demoUrl?: string;
